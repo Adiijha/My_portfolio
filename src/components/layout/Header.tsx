@@ -84,7 +84,7 @@ export default function Header() {
             { href: "https://linkedin.com/in/adiikj", icon: faLinkedin },
             { href: "https://instagram.com/adii_jha", icon: faInstagram },
             { href: "https://twitter.com/adii_kj", icon: faXTwitter }
-          ].map((social, index) => (
+          ].map((social) => (
             <motion.a
               key={social.href}
               href={social.href}
