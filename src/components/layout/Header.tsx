@@ -10,9 +10,6 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   const linkVariants = {
     hidden: { opacity: 0, y: 20 },

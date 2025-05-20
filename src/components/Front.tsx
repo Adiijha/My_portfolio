@@ -4,7 +4,6 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import bg from '@/assets/bg.jpg';
 
 export default function Front() {
