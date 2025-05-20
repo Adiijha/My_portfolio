@@ -1,11 +1,9 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import LandingPage from "@/components/Home";
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <Footer />
+      <LandingPage />
     </>
   );
 }
