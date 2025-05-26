@@ -74,10 +74,10 @@ const projects = [
     title: "Portfolio",
     description: "My Personal basic Portfolio showcasing my work and achievements.",
     img: portfolio,
-    link: "https://adii-kj-portfolio.vercel.app/",
-    githublink: "https://github.com/Adiijha/My-portfolio",
+    link: "https://www.adiikj.me/",
+    githublink: "https://github.com/Adiijha/My_portfolio",
     logo: portlogo,
-    technologies: ["React", "TailwindCSS"]
+    technologies: ["Next Js", "TailwindCSS", "Framer Motion", "React"]
   },
   {
     id: 6,
