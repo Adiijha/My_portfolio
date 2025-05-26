@@ -1,43 +1,41 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faCode, faHouse, faPhone, faBook, faLaptop } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { LazyMotion, domAnimation, m } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin, faXTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faCode, faHouse, faPhone, faBook, faLaptop } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.2 },
-    }),
-  };
-
-  const handleItemClick = (item : string) => {
+  const handleItemClick = (item: string) => {
     setActiveItem(item);
-    setIsOpen(false);
   };
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
-        setActiveItem(""); 
+        setActiveItem("");
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const menuItems = [
+    { label: "Home", icon: faHouse },
+    { label: "Projects", icon: faBook },
+    { label: "Technologies", icon: faLaptop },
+    { label: "Contact", icon: faPhone },
+  ];
+
+  const socialLinks = [
+    { href: "https://github.com/adiijha", icon: faGithub },
+    { href: "https://linkedin.com/in/adiikj", icon: faLinkedin },
+    { href: "https://instagram.com/adii_jha", icon: faInstagram },
+    { href: "https://twitter.com/adii_kj", icon: faXTwitter },
+  ];
 
   return (
     <header className="bg-black shadow-md font-pop fixed top-0 w-full z-50">
@@ -48,99 +46,59 @@ export default function Header() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex justify-center space-x-6 gap-4">
-          {["Home", "Projects", "Technologies", "Contact"].map((item, index) => (
-            <motion.li
-              key={item}
-              custom={index}
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ scale: 1.1, color: "#ffffff" }}
-            >
+          {menuItems.map((item) => (
+            <li key={item.label}>
               <a
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-400 hover:text-white text-xl"
+                href={`#${item.label.toLowerCase()}`}
+                className="text-gray-400 hover:text-white text-xl transition-colors duration-300 flex items-center gap-1"
               >
-                <FontAwesomeIcon
-                  icon={
-                    item === "Home"
-                      ? faHouse
-                      : item === "Projects"
-                      ? faBook
-                      : item === "Technologies"
-                      ? faLaptop
-                      : faPhone
-                  }
-                />{" "}
-                {item}
+                <FontAwesomeIcon icon={item.icon} /> {item.label}
               </a>
-            </motion.li>
+            </li>
           ))}
         </ul>
 
-        {/* Social Icons (Desktop) */}
+        {/* Social Icons */}
         <div className="hidden md:flex items-center gap-2">
-          {[{ href: "https://github.com/adiijha", icon: faGithub },
-            { href: "https://linkedin.com/in/adiikj", icon: faLinkedin },
-            { href: "https://instagram.com/adii_jha", icon: faInstagram },
-            { href: "https://twitter.com/adii_kj", icon: faXTwitter }
-          ].map((social) => (
-            <motion.a
+          {socialLinks.map((social) => (
+            <a
               key={social.href}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white mx-2"
-              whileHover={{ scale: 1.2, color: "#ffffff" }}
+              className="text-gray-400 hover:text-white transition-transform duration-300 transform hover:scale-110"
             >
               <FontAwesomeIcon icon={social.icon} size="2x" />
-            </motion.a>
+            </a>
           ))}
         </div>
       </nav>
 
       {/* Mobile Floating Navbar */}
-      <motion.div
-        className={`fixed bottom-8 border-2 border-gray-700 left-10 right-10 bg-slate-900 bg-opacity-50 backdrop-blur-md z-50 flex justify-between items-center py-3 px-6 md:hidden rounded-3xl`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isOpen ? 1 : 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Mobile Menu Items (without text) */}
-        <ul className="flex justify-between space-x-6 w-full">
-          {["Home", "Projects", "Technologies", "Contact"].map((item, index) => (
-            <motion.li
-              key={item}
-              custom={index}
-              variants={linkVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ scale: 1.1, color: "#ffffff" }}
-              className="text-center"
-            >
-              <a
-                href={`#${item.toLowerCase()}`}
-                className={`text-xl ${activeItem === item ? "text-blue-500" : "text-gray-400"}`}
-                onClick={() => handleItemClick(item)} 
-              >
-                <FontAwesomeIcon
-                  icon={
-                    item === "Home"
-                      ? faHouse
-                      : item === "Projects"
-                      ? faBook
-                      : item === "Technologies"
-                      ? faLaptop
-                      : faPhone
-                  }
-                  className="h-7 w-7" 
-                />
-              </a>
-            </motion.li>
-          ))}
-        </ul>
-
-      </motion.div>
+      <LazyMotion features={domAnimation}>
+        <m.div
+          className="fixed bottom-8 border-2 border-gray-700 left-10 right-10 bg-slate-900 bg-opacity-50 backdrop-blur-md z-50 flex justify-between items-center py-3 px-6 md:hidden rounded-3xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ul className="flex justify-between space-x-6 w-full">
+            {menuItems.map((item) => (
+              <li key={item.label} className="text-center">
+                <a
+                  href={`#${item.label.toLowerCase()}`}
+                  className={`text-xl ${
+                    activeItem === item.label ? "text-blue-500" : "text-gray-400"
+                  } transition-colors duration-300`}
+                  onClick={() => handleItemClick(item.label)}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="h-7 w-7" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </m.div>
+      </LazyMotion>
     </header>
   );
 }

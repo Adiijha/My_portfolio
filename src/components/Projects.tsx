@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Switch from '@mui/material/Switch';
+import RollerSwitch from '@/components/ui/RollerSwitch';
 import Image from "next/image";
 
 import snake from "@/assets/snakebit.png";
@@ -159,12 +159,13 @@ export default function Projects() {
           MY PROJECTS
         </motion.h2>
 
-        <div className="flex justify-center items-center gap-2 mb-8">
+        <div className="flex justify-center items-center gap-4 mb-8">
           <span className="text-white text-sm md:text-xl">Main Projects</span>
-          <Switch
+          <RollerSwitch
             checked={showFiveWeekProjects}
             onChange={() => setShowFiveWeekProjects(!showFiveWeekProjects)}
-            color="primary"
+            color="black"
+            className="text-white w-10 h-10"
           />
           <span className="text-white text-sm md:text-xl">5 Weeks 5 Projects</span>
         </div>
